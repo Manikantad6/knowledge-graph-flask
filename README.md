@@ -10,7 +10,7 @@ This is the flask backend application which uses neo4j db for storing the data.
 ## Install flask
 `pip install Flask`
 
-## Sering/Running application 
+## Serving/Running application 
 `flask --app hello run`
 or 
 `flask run --debug`
