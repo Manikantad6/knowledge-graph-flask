@@ -10,7 +10,22 @@ This is the flask backend application which uses neo4j db for storing the data.
 ## Install flask
 `pip install Flask`
 
+## Install other dependencies
+`pip install pandas networkx matplotlib`
+
 ## Serving/Running application 
 `flask --app hello run`
 or 
 `flask run --debug`
+
+## Server will run on the following address
+`http://127.0.0.1:5000/`
+
+
+## Use sample csv file which is in root folder or any csv following the sample csv structure.
+
+
+
+
+
+
