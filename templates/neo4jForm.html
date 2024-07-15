@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <!-- <body> -->
-<body >
+<body class="text-center">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -20,32 +20,40 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
+              <li class="nav-item ">
                 <a class="nav-link" href="/">Home </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/addNodes">Upload</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Upload</a>
               </li>
             </ul>
-         
+      
           </div>
         </nav>
       </header>
       <br>
-  <br><br>
-      <!-- Begin page content -->
-     <div class="container">
-        <h1>Geographic Relationships: Cities, States, and Countries</h1>
-        {% if graph_exists %}
-        <img src="{{ url_for('static', filename='graph.png') }}" alt="Knowlege Graph">
-        {% else %}
-        <br>
-        <br>
-        <h3>Seems like you haven't generated any graph yet. <a href="/addNodes">click here</a> to upload csv</h3>
-        {% endif %}
+    <br><br>
+   <div class="container">
+        <div class="col-md-4 offset-4">
+                <form class="form-signin" method="POST" action="/neo/import" enctype=multipart/form-data>
+                    <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+                    <h1 class="h3 mb-3 font-weight-normal">Upload the csv file</h1>
+                  
+                    <br>
+                    <input type="file" name="file" class="form-control" required/>
+                    <br>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
+                    <p class="mt-5 mb-3 text-muted">Upload the csv to generate the graph network</p>
+                  </form>
 
-    
-     </div>
+                  {% if status %}
+                  <div class="alert alert-success" role="alert">
+                    Your node has been successfully added, please go back to <a href="/neo">home page</a> to view.
+                  </div>
+                    {% endif %}
+        </div>
+   </div>
+  
 
         <!-- SCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

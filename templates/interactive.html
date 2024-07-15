@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Network Visualization</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">NLPA Assignment (Knowlege Graphs)</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/neo/import">Upload</a>
+          </li>
+        </ul>
+  
+      </div>
+    </nav>
+  </header>
+  <div id="mynetwork" style="height: 93vh;width: 200vh;"></div>
+
+  <script type="text/javascript">
+    var container = document.getElementById('mynetwork');
+
+
+    // Define nodes and edges data directly in the script
+    
+    // Process data from Flask template variable
+    var data = JSON.parse('{{ response | safe}}')
+    console.log(data);
+    var nodes = []
+    data.forEach((item, index)=> {
+        if(nodes.filter(n=> n.label == item.n.name).length <1){
+          nodes.push({
+            id:index, label:item.n.name, title: item.n.label
+          })
+        }
+        
+    })
+    console.log(nodes);
+
+    //get the node relations from the queried result 
+    function getNodeRelations(nodeName){
+       return  data.filter(item=> item.n.name == nodeName ? item.r: {})
+    }
+    // get the node index from the nodes created to map the relations
+    function getNodeIndex(nodeName){
+        console.log(nodeName)
+        let n =  nodes.filter(node=> node.label == nodeName)[0].id;
+        console.log(n);
+        return n
+    }
+
+    var edges = []
+    nodes.forEach((node, index)=> {
+
+        let relationNodes = getNodeRelations(node.label)[0].r;
+        console.log("relationnodes: "+ JSON.stringify(relationNodes));
+        if(index != getNodeIndex(relationNodes[2].name)){
+            edges.push({
+            from: index, to: getNodeIndex(relationNodes[2].name)
+         })
+        }
+        
+    })
+    console.log(edges);
+
+    // Configure visualization options
+    var data = {
+      nodes: new vis.DataSet(nodes),
+      edges: new vis.DataSet(edges)
+    };
+    var options = {
+      layout: {
+        randomSeed: undefined
+      },
+      physics: {
+        enabled: true
+      },
+      interaction: {
+        selectable: true
+      }
+    };
+
+    // Create a network
+    var network = new vis.Network(container, data, options);
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

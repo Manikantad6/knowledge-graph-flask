@@ -27,10 +27,7 @@
                 <a class="nav-link" href="#">Upload</a>
               </li>
             </ul>
-            <!-- <form class="form-inline mt-2 mt-md-0">
-              <input class="form-control mr-sm-4" type="text" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-4 my-sm-0" type="submit">Search</button>
-            </form> -->
+          
           </div>
         </nav>
       </header>
@@ -41,14 +38,6 @@
                 <form class="form-signin" method="POST" action="addNodes" enctype=multipart/form-data>
                     <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
                     <h1 class="h3 mb-3 font-weight-normal">Upload the csv file</h1>
-                    <!-- <label for="entity1" class="sr-only">Entity 1</label>
-                    <input type="text" id="node1" name="node1" class="form-control" placeholder="Enter Entity-1 / Node 1" required autofocus>
-                   <br>
-                    <label for="relation" class="sr-only">Relation</label> -->
-                    <!-- <input type="text" id="relation" name="relation" class="form-control" placeholder="Enter Relation" required autofocus>
-                    <br>
-                    <label for="entity2" class="sr-only">Entity 2</label>
-                    <input type="text" id="node2" name="node2" class="form-control" placeholder="Enter Entity-2 / Node 2" required autofocus> -->
                   
                     <br>
                     <input type="file" name="file" class="form-control" required/>
@@ -59,7 +48,7 @@
 
                   {% if status %}
                   <div class="alert alert-success" role="alert">
-                    Your node has been successfully added, please go back to <a href="/">home page</a> to view. {{status}}
+                    Your node has been successfully added, please go back to <a href="/">home page</a> to view.
                   </div>
                     {% endif %}
         </div>
