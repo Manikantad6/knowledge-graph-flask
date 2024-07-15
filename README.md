@@ -11,7 +11,7 @@ This is the flask backend application which uses neo4j db for storing the data.
 `pip install Flask`
 
 ## Install other dependencies
-`pip install pandas networkx matplotlib`
+`pip install pandas networkx matplotlib neo4j`
 
 ## Serving/Running application 
 `flask --app hello run`
